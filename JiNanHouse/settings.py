@@ -16,7 +16,8 @@ NEWSPIDER_MODULE = 'JiNanHouse.spiders'
 
 ITEM_PIPELINES = {
   'JiNanHouse.pipelines.ResidentPipeline': 1,
-  'JiNanHouse.pipelines.AnjukePipline': 2
+  'JiNanHouse.pipelines.AnjukePipline': 2,
+  'JiNanHouse.pipelines.FangtianxiaPipline': 3,
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

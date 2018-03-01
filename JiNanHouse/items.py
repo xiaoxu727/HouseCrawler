@@ -10,7 +10,6 @@ from scrapy import Item, Field
 
 
 class JinanhouseItem(scrapy.Item):
-    # define the fields for your item here like:
     # name = scrapy.Field()
     pass
 
@@ -18,7 +17,6 @@ class JinanhouseItem(scrapy.Item):
 class Residential_Brief(scrapy.Item):
     residential_id = Field()
     residential_name = Field()
-     # = Field()
     district = Field()
     bizcircle = Field()
     build_year = Field()
@@ -45,7 +43,7 @@ class Residential_Detail(scrapy.Item):
     # on_sale_count = Field()
 
 
-class around_facilities(Item):
+class around_facilities(scrapy.Item):
     residential_id = Field()
     residential_name = Field()
     facility_name = Field()
@@ -55,7 +53,7 @@ class around_facilities(Item):
     facility_distance = Field()
 
 
-class deal_brief(Item):
+class deal_brief(scrapy.Item):
     residential_id = Field()
     house_id = Field()
     residential_name = Field()
@@ -69,7 +67,7 @@ class deal_brief(Item):
     deal_cycle_info = Field()
 
 
-class deal_detail(Item):
+class deal_detail(scrapy.Item):
     house_id = Field()
     deal_price = Field()
     avge_price = Field()
@@ -81,7 +79,7 @@ class deal_detail(Item):
     page_view = Field()
 
 
-class house_baseinfo(Item):
+class house_baseinfo(scrapy.Item):
     residential_id = Field()
     house_id = Field()
     house_type = Field()
@@ -105,7 +103,7 @@ class house_baseinfo(Item):
     ownership = Field()
 
 
-class ajk_residential_brief_item(Item):
+class ajk_residential_brief_item(scrapy.Item):
     residential_id = Field()
     residential_name = Field()
     address = Field()
@@ -116,7 +114,7 @@ class ajk_residential_brief_item(Item):
     pct_change_no = Field()
     pct_change_up = Field()
 
-class ajk_residential_baseinfo_item(Item):
+class ajk_residential_baseinfo_item(scrapy.Item):
     residential_id = Field()
     residential_name = Field()
     avge_price = Field()
@@ -138,7 +136,7 @@ class ajk_residential_baseinfo_item(Item):
     rental_count = Field()
 
 
-class ftx_residential_brief_item(Item):
+class ftx_residential_brief_item(scrapy.Item):
     residential_id = Field()
     residential_name = Field()
     build_index = Field()
@@ -148,9 +146,11 @@ class ftx_residential_brief_item(Item):
     rental_count = Field()
     build_year = Field()
     price = Field()
+    price_pct_change = Field()
 
 
-class ftx_residential_baseinfo_item(Item):
+class ftx_residential_baseinfo_item(scrapy.Item):
+
     residential_id = Field()
     residential_name = Field()
     price = Field()
@@ -168,10 +168,11 @@ class ftx_residential_baseinfo_item(Item):
     address = Field()
     build_count = Field()
     property_company = Field()
+    property_cost = Field()
     develop_company = Field()
     district = Field()
 
-class ftx_residential_trade_item(Item):
+class ftx_residential_trade_item(scrapy.Item):
     residential_id = Field()
     residential_name = Field()
     house_type = Field()

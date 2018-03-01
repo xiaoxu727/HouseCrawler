@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from JiNanHouse.items import Residential_Brief, Residential_Detail
+from JiNanHouse.utils import format
+
 
 class LianjiaSpider(scrapy.Spider):
     name = 'LianjiaSpider'
@@ -115,33 +117,33 @@ class LianjiaSpider(scrapy.Spider):
         for node in nodes:
             item = Residential_Brief()
             eles = node.xpath('./div[@class="info"]/div[@class="title"]/a/@href').extract()
-            item['residential_id'] = eles[0] if len(eles) > 0 else ''
+            item['residential_id'] = format(eles[0]) if len(eles) > 0 else ''
 
             eles = node.xpath('./div[@class="info"]/div[@class="title"]/a/text()').extract()
-            item['residential_name'] = eles[0] if len(eles) > 0 else ''
+            item['residential_name'] = format(eles[0]) if len(eles) > 0 else ''
 
             eles = node.xpath('./div[@class="info"]/div[@class="positionInfo"]/a[@class="district"]/text()').extract()
-            item['district'] = eles[0] if len(eles) > 0 else ''
+            item['district'] = format(eles[0]) if len(eles) > 0 else ''
 
             eles = node.xpath('./div[@class="info"]/div[@class="positionInfo"]/a[@class="bizcircle"]/text()').extract()
-            item['bizcircle'] = eles[0] if len(eles) > 0 else ''
+            item['bizcircle'] = format(eles[0]) if len(eles) > 0 else ''
 
             eles = node.xpath('./div[@class="info"]/div[@class="positionInfo"]/text()').extract()
-            item['build_year'] = eles[0] if len(eles) > 0 else ''
+            item['build_year'] = format(eles[0]) if len(eles) > 0 else ''
 
             eles = node.xpath('./div[@class="xiaoquListItemRight"]/div[@class="xiaoquListItemPrice"]/div[@class="totalPrice"]/span/text()').extract()
-            item['avg_price'] = eles[0] if len(eles) > 0 else ''
+            item['avg_price'] = format(eles[0]) if len(eles) > 0 else ''
 
             eles = node.xpath('./div[@class="xiaoquListItemRight"]/div[@class="xiaoquListItemPrice"]/div[@class="priceDesc"]/text()').extract()
-            item['avg_price_date'] = eles[0] if len(eles) > 0 else ''
+            item['avg_price_date'] = format(eles[0]) if len(eles) > 0 else ''
 
             eles = node.xpath('./div[@class="xiaoquListItemRight"]/div[@class="xiaoquListItemSellCount"]/a[@class="totalSellCount"]/span/text()').extract()
-            item['on_sale_count'] = eles[0] if len(eles) > 0 else ''
+            item['on_sale_count'] = format(eles[0]) if len(eles) > 0 else ''
             yield item
 
         for node in nodes:
             eles = node.xpath('./div[@class="info"]/div[@class="title"]/a/@href').extract()
-            url = eles[0] if len(eles) > 0 else ''
+            url = format(eles[0]) if len(eles) > 0 else ''
             if url != '':
                 yield scrapy.Request(url, callback=self.resident_detail_parse)
             else:
@@ -152,20 +154,20 @@ class LianjiaSpider(scrapy.Spider):
         item = Residential_Detail()
         item['residential_id'] = response.url
         eles = sel.xpath("//div[@class='detailHeader fl']/h1[@class='detailTitle']/text()").extract()
-        item['residential_name'] = eles[0] if len(eles) > 0 else ''
+        item['residential_name'] = format(eles[0]) if len(eles) > 0 else ''
         eles = sel.xpath("//div[@class='detailHeader fl']/div[@class='detailDesc']/text()").extract()
-        item['address'] = eles[0] if len(eles) > 0 else ''
+        item['address'] = format(eles[0]) if len(eles) > 0 else ''
 
         eles = sel.xpath("//div[@class='xiaoquOverview']/div[@class='xiaoquDescribe fr']/div[@class='xiaoquInfo']/div[@class='xiaoquInfoItem']/span[@class='xiaoquInfoContent']/text()").extract()
-        item['build_year'] = eles[0] if len(eles) > 0 else ''
-        item['build_type'] = eles[1] if len(eles) > 1 else ''
-        item['property_cost'] = eles[2] if len(eles) > 2 else ''
-        item['property_company'] = eles[3] if len(eles) > 3 else ''
-        item['develop_company'] = eles[4] if len(eles) > 4 else ''
-        item['building_count'] = eles[5] if len(eles) > 5 else ''
-        item['house_count'] = eles[6] if len(eles) > 6 else ''
-        item['near_shop'] = eles[7] if len(eles) > 7 else ''
+        item['build_year'] = format(eles[0]) if len(eles) > 0 else ''
+        item['build_type'] = format(eles[1]) if len(eles) > 1 else ''
+        item['property_cost'] = format(eles[2]) if len(eles) > 2 else ''
+        item['property_company'] = format(eles[3]) if len(eles) > 3 else ''
+        item['develop_company'] = format(eles[4]) if len(eles) > 4 else ''
+        item['building_count'] = format(eles[5]) if len(eles) > 5 else ''
+        item['house_count'] = format(eles[6]) if len(eles) > 6 else ''
+        item['near_shop'] = format(eles[7]) if len(eles) > 7 else ''
 
         eles = sel.re("resblockPosition.+?',")
-        item['lat_lon'] = str.replace(eles[0], 'resblockPosition:', '').replace("'", "") if len(eles) > 0 else ''
+        item['lat_lon'] = str.replace(format(eles[0]), 'resblockPosition:', '').replace("'", "") if len(eles) > 0 else ''
         yield item
